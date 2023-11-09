@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 public class AdminLogin extends javax.swing.JFrame {
+    protected static AdminMenu adminMenu;
     protected static AdminCred cred;
     protected static BufferedReader bReader;
     protected static FileReader fReader;
@@ -213,7 +214,10 @@ public class AdminLogin extends javax.swing.JFrame {
 
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
+                adminMenu = new AdminMenu();
                 login();
+                this.dispose();
+                adminMenu.setVisible(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "There is an error: " + e.getMessage(), "Error occurred", JOptionPane.ERROR_MESSAGE);
             }

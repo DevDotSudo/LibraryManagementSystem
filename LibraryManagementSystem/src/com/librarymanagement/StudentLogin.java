@@ -3,7 +3,6 @@ package com.librarymanagement;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -11,13 +10,11 @@ public class StudentLogin extends javax.swing.JFrame {
     int xMouse;
     int yMouse;
     java.awt.Color transparent = new java.awt.Color(0, 0, 0, 0);
-    protected static AddStudents add;
     public static File file;
     public static BufferedReader bReader;
     public static FileReader fReader;
     
     public StudentLogin() {
-        add = new AddStudents();
         initComponents();
     }
 
