@@ -1,4 +1,3 @@
-
 package com.librarymanagement.admin;
 
 import java.sql.Statement;
@@ -9,18 +8,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class CIT extends javax.swing.JFrame {
+public class CM extends javax.swing.JFrame {
     static DBConnection db;
     int xMouse;
     int yMouse;
-    
-    public CIT() {
+    public CM() {
         db = new DBConnection();
         db.connect();
         initComponents();
         showBooks();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,14 +27,14 @@ public class CIT extends javax.swing.JFrame {
         moveFrame = new javax.swing.JPanel();
         exit = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        booksList = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         bookIDFld = new javax.swing.JTextField();
         bookTitleFld = new javax.swing.JTextField();
         bookAuthorFld = new javax.swing.JTextField();
         bookPagesFld = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        booksList = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
@@ -45,7 +43,6 @@ public class CIT extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Library Management");
-        setBackground(new java.awt.Color(255, 238, 217));
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -55,6 +52,7 @@ public class CIT extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         moveFrame.setBackground(new java.awt.Color(23, 107, 135));
+        moveFrame.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         moveFrame.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 moveFrameMouseDragged(evt);
@@ -78,50 +76,8 @@ public class CIT extends javax.swing.JFrame {
         jPanel1.add(moveFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 238, 217));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(23, 107, 135), 2), "CIT BOOKS MANAGER", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins SemiBold", 1, 18), new java.awt.Color(23, 107, 135))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(23, 107, 135), 2), "CHM BOOKS MANAGER", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins SemiBold", 1, 18), new java.awt.Color(23, 107, 135))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(23, 107, 135)));
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 840, 10));
-
-        booksList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Books ID", "Books Title", "Books Author", "Book Pages"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        booksList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                booksListMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(booksList);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 820, 190));
-
-        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(23, 107, 135));
-        jLabel2.setText("List of Books");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         bookIDFld.setBackground(new java.awt.Color(255, 238, 217));
         bookIDFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -148,13 +104,58 @@ public class CIT extends javax.swing.JFrame {
         bookPagesFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         bookPagesFld.setForeground(new java.awt.Color(11, 36, 71));
         bookPagesFld.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        bookPagesFld.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 1, true), "Book Pages", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins SemiBold", 1, 14), new java.awt.Color(23, 107, 135))); // NOI18N
+        bookPagesFld.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 1, true), "Book Pages", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins SemiBold", 0, 14), new java.awt.Color(23, 107, 135))); // NOI18N
         jPanel2.add(bookPagesFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 180, 50));
+
+        jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(23, 107, 135));
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(23, 107, 135)));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 840, 10));
+
+        booksList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Books ID", "Books Title", "Books Author", "Books Pages"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        booksList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                booksListMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(booksList);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 820, 190));
+
+        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(23, 107, 135));
+        jLabel2.setText("List of Books");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         addBtn.setBackground(new java.awt.Color(23, 107, 135));
         addBtn.setFont(new java.awt.Font("Poppins SemiBold", 1, 14)); // NOI18N
         addBtn.setForeground(new java.awt.Color(255, 238, 217));
         addBtn.setText("Add Book");
+        addBtn.setBorder(null);
         addBtn.setFocusable(false);
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,6 +168,7 @@ public class CIT extends javax.swing.JFrame {
         updateBtn.setFont(new java.awt.Font("Poppins SemiBold", 1, 14)); // NOI18N
         updateBtn.setForeground(new java.awt.Color(255, 238, 217));
         updateBtn.setText("Update Book");
+        updateBtn.setBorder(null);
         updateBtn.setFocusable(false);
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +181,7 @@ public class CIT extends javax.swing.JFrame {
         deleteBtn.setFont(new java.awt.Font("Poppins SemiBold", 1, 14)); // NOI18N
         deleteBtn.setForeground(new java.awt.Color(255, 238, 217));
         deleteBtn.setText("Delete Book");
+        deleteBtn.setBorder(null);
         deleteBtn.setFocusable(false);
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,7 +200,7 @@ public class CIT extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Poppins Medium", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(23, 107, 135));
-        jLabel3.setText("Search Book : ");
+        jLabel3.setText("Search Book :");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 860, 440));
@@ -214,7 +217,7 @@ public class CIT extends javax.swing.JFrame {
             
             det.setRowCount(0);
             Statement s = db.con.createStatement();
-            db.rs = s.executeQuery("SELECT * FROM Cit_Books");
+            db.rs = s.executeQuery("SELECT * FROM Cm_Books");
             
             while(db.rs.next()) {
                 Vector vec = new Vector();
@@ -268,7 +271,7 @@ public class CIT extends javax.swing.JFrame {
             else {
                 int book_pages = Integer.parseInt(book_page);
                 
-                db.ps = db.con.prepareStatement("INSERT INTO Cit_Books (Book_ID, Book_Title, Book_Author, Book_Pages) VALUES(?,?,?,?)");
+                db.ps = db.con.prepareStatement("INSERT INTO Cm_Books (Book_ID, Book_Title, Book_Author, Book_Pages) VALUES(?,?,?,?)");
             
                 db.ps.setString(1, book_id);
                 db.ps.setString(2, book_title);
@@ -329,7 +332,7 @@ public class CIT extends javax.swing.JFrame {
                 confirm = JOptionPane.showConfirmDialog(null, "Delete this book?", "Message", JOptionPane.OK_CANCEL_OPTION);
 
                 if(confirm == JOptionPane.OK_OPTION) {
-                    db.ps = db.con.prepareStatement("DELETE FROM Cit_Books WHERE Book_ID = ?");
+                    db.ps = db.con.prepareStatement("DELETE FROM Cm_Books WHERE Book_ID = ?");
                     db.ps.setLong(1,delete);
                 }
                 else {
@@ -339,13 +342,13 @@ public class CIT extends javax.swing.JFrame {
                     int del = db.ps.executeUpdate();
                     if(del == 1)
                 {
-                    JOptionPane.showMessageDialog(null, "Successfully deleted!","Message",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Successfully deleted!!","Message",JOptionPane.PLAIN_MESSAGE);
                     clearFlds();
 
                 }
                 else
                 {
-                  JOptionPane.showMessageDialog(null,"Book not deleted!","Message",JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.showMessageDialog(null,"Not deleted!!","Message",JOptionPane.ERROR_MESSAGE);
                 }
                 showBooks();
             }
@@ -375,7 +378,7 @@ public class CIT extends javax.swing.JFrame {
                 confirm = JOptionPane.showConfirmDialog(null, "Update this book?", "Message", JOptionPane.OK_CANCEL_OPTION);
            
                 if(confirm == JOptionPane.OK_OPTION) {
-                db.ps = db.con.prepareStatement("UPDATE Cit_Books SET Book_Title = ?, Book_Author = ?, Book_Pages = ? WHERE Book_ID = ?");
+                db.ps = db.con.prepareStatement("UPDATE Cm_Books SET Book_Title = ?, Book_Author = ?, Book_Pages = ? WHERE Book_ID = ?");
                 db.ps.setString(1, book_title);
                 db.ps.setString(2, book_author);
                 db.ps.setInt(3, book_pages);

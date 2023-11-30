@@ -6,15 +6,58 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class StudentLogin extends javax.swing.JFrame {
-    DBConnection db;
+    static StudentMenu student;
+    static DBConnection db;
+    protected String user;
+    protected String pass;
     int xMouse;
     int yMouse;
     java.awt.Color transparent = new java.awt.Color(0, 0, 0, 0);
     
     public StudentLogin() {
+        initComponents();
+        student = new StudentMenu();
         db = new DBConnection();
         db.connect();
-        initComponents();
+    }
+    
+    public void studID() {
+        try {
+            db.ps = db.con.prepareStatement("SELECT ID, firstName, middleName, lastName FROM StudentInfo WHERE Username = ?");
+            db.ps.setString(1, user);
+            
+            db.rs = db.ps.executeQuery();
+            
+            if(db.rs.next()) {
+                student.idFld.setText(db.rs.getString(1));
+                student.studentName.setText(db.rs.getString(2) + " " + db.rs.getString(3) + " " + db.rs.getString(4));
+            }
+        }catch(Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+    }
+
+    public void showInfo() {
+        try {
+            db.ps = db.con.prepareStatement("SELECT firstName,middleName,lastName,gender,age,course,address,contactNum FROM StudentInfo WHERE Username = ?");
+            
+            db.ps.setString(1, user);
+            
+            db.rs = db.ps.executeQuery();
+            
+            if(db.rs.next()) {
+                student.fNameFld.setText(db.rs.getString(1));
+                student.mNameFld.setText(db.rs.getString(2));
+                student.lNameFld.setText(db.rs.getString(3));
+                student.ageFld.setText(db.rs.getString(5));
+                student.genderFld.setText(db.rs.getString(4));
+                student.courseFld.setText(db.rs.getString(6));
+                student.addressFld.setText(db.rs.getString(7));
+                student.conNumFld.setText(db.rs.getString(8));
+            }
+        }catch(Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -95,11 +138,6 @@ public class StudentLogin extends javax.swing.JFrame {
         showPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showPassMouseClicked(evt);
-            }
-        });
-        showPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showPassActionPerformed(evt);
             }
         });
         jPanel2.add(showPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 20, 30));
@@ -219,7 +257,6 @@ public class StudentLogin extends javax.swing.JFrame {
     private void moveFrameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moveFrameMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
-        moveFrame.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
     }//GEN-LAST:event_moveFrameMousePressed
 
     private void moveFrameMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moveFrameMouseDragged
@@ -229,23 +266,24 @@ public class StudentLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_moveFrameMouseDragged
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        String username = userFld.getText();
-        String password = passFld.getText();
+        user = userFld.getText();
+        pass = passFld.getText();
         
-        emptyUser.setText(username.isEmpty() ? "Username field is empty" : "");
-        emptyPass.setText(password.isEmpty() ? "Password field is empty" : "");
+        emptyUser.setText(user.isEmpty() ? "Username field is empty" : "");
+        emptyPass.setText(pass.isEmpty() ? "Password field is empty" : "");
         
         try {
             Statement s = db.con.createStatement();
-            String x = "SELECT * FROM StudentCredentials WHERE Username='"+ username +"'AND Password='"+ password + "'";
+            String x = "SELECT * FROM StudentInfo WHERE Username='"+ user +"'AND Password='"+ pass + "'";
             
             db.rs = s.executeQuery(x);
             
             if(db.rs.next()) {
                 JOptionPane.showMessageDialog(null, "Logged in successfully");
                 this.dispose();
-                StudentMenu student = new StudentMenu();
                 student.setVisible(true);
+                studID();
+                showInfo();
                 return;
             }
             
@@ -257,21 +295,15 @@ public class StudentLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void showPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPassMouseClicked
-        if(!passFld.getText().isEmpty()) {
-            if(showPass.isSelected()) {
-                passFld.setEchoChar((char)0);
-                showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/show.png"));
+        if(showPass.isSelected()) {
+            passFld.setEchoChar((char)0);
+            showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/show.png"));
 
-            } else {
-                passFld.setEchoChar('*');
-                showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/hide.png"));
-            }
+        } else {
+            passFld.setEchoChar('*');
+            showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/hide.png"));
         }
     }//GEN-LAST:event_showPassMouseClicked
-
-    private void showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_showPassActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backBtn;
@@ -293,8 +325,8 @@ public class StudentLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel moveFrame;
-    private javax.swing.JPasswordField passFld;
+    protected javax.swing.JPasswordField passFld;
     private javax.swing.JCheckBox showPass;
-    private javax.swing.JTextField userFld;
+    protected javax.swing.JTextField userFld;
     // End of variables declaration//GEN-END:variables
 }

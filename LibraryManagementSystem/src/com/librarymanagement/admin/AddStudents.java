@@ -4,14 +4,31 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class AddStudents extends javax.swing.JFrame {
-    DBConnection db;
+
+    static DBConnection db;
     int xMouse;
     int yMouse;
     Color transparent = new Color(0, 0, 0, 0);
+
     public AddStudents() {
         db = new DBConnection();
         db.connect();
         initComponents();
+    }
+
+    void clearFlds() {
+        idNumFld.setText("");
+        firstNameFld.setText("");
+        midNameFld.setText("");
+        lastNameFld.setText("");
+        genderFld.setText("");
+        ageFld.setText("");
+        courseFld.setText("");
+        addressFld.setText("");
+        contactNumFld.setText("");
+        usernameFld.setText("");
+        passwordFld.setText("");
+
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +58,7 @@ public class AddStudents extends javax.swing.JFrame {
         idNumFld = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Add Students");
+        setTitle("Library Management");
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 238, 217));
@@ -258,54 +275,59 @@ public class AddStudents extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBtnMouseClicked
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+        String id = idNumFld.getText();
+        String fName = firstNameFld.getText();
+        String mName = midNameFld.getText();
+        String lName = lastNameFld.getText();
+        String gender = genderFld.getText();
+        String ageText = ageFld.getText();
+        String course = courseFld.getText();
+        String address = addressFld.getText();
+        String contactNumText = contactNumFld.getText();
+        String username = usernameFld.getText();
+        String password = passwordFld.getText();
+
         try {
-            int id = Integer.parseInt(idNumFld.getText());
-            String fName = firstNameFld.getText();
-            String mName = midNameFld.getText();
-            String lName = lastNameFld.getText();
-            String gender = genderFld.getText();
-            int age = Integer.parseInt(ageFld.getText());
-            String course = courseFld.getText();
-            String address = addressFld.getText();
-            long conNum = Long.parseLong(contactNumFld.getText());
-            String username = usernameFld.getText();
-            String password = passwordFld.getText();
-            
-            db.ps = db.con
-                    .prepareStatement("INSERT INTO StudentInfo(ID, firstName, middleName, lastName, gender, age, course, address, contactNum) VALUES(?,?,?,?,?,?,?,?,?)");
-            
-            db.ps.setInt(1, id);
-            db.ps.setString(2, fName);
-            db.ps.setString(3, mName);
-            db.ps.setString(4, lName);
-            db.ps.setString(5, gender);
-            db.ps.setInt(6, age);
-            db.ps.setString(7, course);
-            db.ps.setString(8, address);
-            db.ps.setLong(9, conNum);
-            
-            int check1 = db.ps.executeUpdate();
-                
-            db.ps = db.con
-                    .prepareStatement("INSERT INTO StudentCredentials(Username, Password) VALUES(?,?)");
-            
-            db.ps.setString(1, username);
-            db.ps.setString(2, password);
-            
-            int check2 = db.ps.executeUpdate();
-            
-            if(check1 == 1) {
-                if (check2 == 1) {
+            if (fName.isEmpty() || lName.isEmpty() || mName.isEmpty() || gender.isEmpty()
+                    || ageText.isEmpty() || course.isEmpty() || address.isEmpty()
+                    || contactNumText.isEmpty() || id.isEmpty() || username.isEmpty() || password.isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "Other fields are empty", "Message", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                int age = Integer.parseInt(ageText);
+                long conNum = Long.parseLong(contactNumText);
+
+                db.ps = db.con.prepareStatement("INSERT INTO StudentInfo(ID, firstName, middleName, lastName, gender, age, course, address, contactNum, username, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+
+                db.ps.setString(1, id);
+                db.ps.setString(2, fName);
+                db.ps.setString(3, mName);
+                db.ps.setString(4, lName);
+                db.ps.setString(5, gender);
+                db.ps.setInt(6, age);
+                db.ps.setString(7, course);
+                db.ps.setString(8, address);
+                db.ps.setLong(9, conNum);
+                db.ps.setString(10, username);
+                db.ps.setString(11, password);
+
+                int check = db.ps.executeUpdate();
+
+                if (check == 1) {
                     JOptionPane.showMessageDialog(null, "Created Successfully!");
-                    return;
+                    clearFlds();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Student not created!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            JOptionPane.showMessageDialog(null, "Student not created!", "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(Exception e) {
-            System.out.println("Error" + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input for age or contact number", "Message", JOptionPane.ERROR_MESSAGE);
+            return;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }//GEN-LAST:event_createBtnActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressFld;
     private javax.swing.JTextField ageFld;

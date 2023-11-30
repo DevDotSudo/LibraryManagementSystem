@@ -1,12 +1,21 @@
 package com.librarymanagement.admin;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class UpdateStudents extends javax.swing.JFrame {
+    static DBConnection db;
+    
     int xMouse;
     int yMouse;
     
     public UpdateStudents() {
         initComponents();
+        db = new DBConnection();
+        db.connect();      
+        
     }
+ 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -24,13 +33,15 @@ public class UpdateStudents extends javax.swing.JFrame {
         lNameFld = new javax.swing.JTextField();
         genderFld = new javax.swing.JTextField();
         ageFld = new javax.swing.JTextField();
-        courseFld = new javax.swing.JTextField();
         addressFld = new javax.swing.JTextField();
+        courseFld = new javax.swing.JTextField();
         contactNumFld = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         saveBtn = new javax.swing.JButton();
+        searchBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Library Management");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -77,7 +88,7 @@ public class UpdateStudents extends javax.swing.JFrame {
         studID.setForeground(new java.awt.Color(11, 36, 71));
         studID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         studID.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(23, 107, 135), 2), "Student ID Number", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins SemiBold", 0, 14), new java.awt.Color(23, 107, 135))); // NOI18N
-        jPanel3.add(studID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 170, 50));
+        jPanel3.add(studID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 170, 50));
 
         fNameFld.setBackground(new java.awt.Color(255, 238, 217));
         fNameFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -114,19 +125,19 @@ public class UpdateStudents extends javax.swing.JFrame {
         ageFld.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 1, true), "Age", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins Medium", 0, 12), new java.awt.Color(23, 107, 135))); // NOI18N
         jPanel3.add(ageFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 140, 40));
 
-        courseFld.setBackground(new java.awt.Color(255, 238, 217));
-        courseFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
-        courseFld.setForeground(new java.awt.Color(11, 36, 71));
-        courseFld.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        courseFld.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 1, true), "Course", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins Medium", 0, 12), new java.awt.Color(23, 107, 135))); // NOI18N
-        jPanel3.add(courseFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 140, 40));
-
         addressFld.setBackground(new java.awt.Color(255, 238, 217));
         addressFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         addressFld.setForeground(new java.awt.Color(11, 36, 71));
         addressFld.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         addressFld.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 1, true), "Address", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins Medium", 0, 12), new java.awt.Color(23, 107, 135))); // NOI18N
         jPanel3.add(addressFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 140, 40));
+
+        courseFld.setBackground(new java.awt.Color(255, 238, 217));
+        courseFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        courseFld.setForeground(new java.awt.Color(11, 36, 71));
+        courseFld.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        courseFld.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 1, true), "Course", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Poppins Medium", 0, 12), new java.awt.Color(23, 107, 135))); // NOI18N
+        jPanel3.add(courseFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 140, 40));
 
         contactNumFld.setBackground(new java.awt.Color(255, 238, 217));
         contactNumFld.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -146,7 +157,25 @@ public class UpdateStudents extends javax.swing.JFrame {
         saveBtn.setText("Save Changes");
         saveBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 107, 135), 0, true));
         saveBtn.setFocusable(false);
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
         jPanel3.add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 140, 40));
+
+        searchBtn.setBackground(new java.awt.Color(23, 107, 135));
+        searchBtn.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        searchBtn.setForeground(new java.awt.Color(255, 238, 217));
+        searchBtn.setText("Search Student");
+        searchBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchBtn.setFocusable(false);
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
+        jPanel3.add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 111, 170, 50));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 410, 500));
 
@@ -172,6 +201,90 @@ public class UpdateStudents extends javax.swing.JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_moveFrameMouseDragged
 
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        try {
+            String id = studID.getText();
+            
+            if(id.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter student ID number", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            else {
+                db.ps = db.con.prepareStatement("SELECT firstName,middleName,lastName,gender,age,course,address,contactNum FROM StudentInfo WHERE ID = ?");
+            
+                db.ps.setString(1, id);
+
+                db.rs = db.ps.executeQuery();
+
+                if(db.rs.next()) {
+                    fNameFld.setText(db.rs.getString(1));
+                    mNameFld.setText(db.rs.getString(2));
+                    lNameFld.setText(db.rs.getString(3));
+                    ageFld.setText(db.rs.getString(5));
+                    genderFld.setText(db.rs.getString(4));
+                    courseFld.setText(db.rs.getString(6));
+                    addressFld.setText(db.rs.getString(7));
+                    contactNumFld.setText(db.rs.getString(8));
+                }
+            }
+        }catch(Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        String id = studID.getText();
+        String first = fNameFld.getText();
+        String ageText = ageFld.getText();
+        String middle = mNameFld.getText();
+        String course = courseFld.getText();
+        String lastName = lNameFld.getText();
+        String address = addressFld.getText();
+        String gender = genderFld.getText();
+        String numberText = contactNumFld.getText();
+
+        try {
+            if(first.isEmpty() || ageText.isEmpty() || middle.isEmpty() 
+                    || course.isEmpty() || lastName.isEmpty() || address.isEmpty() || gender.isEmpty() || numberText.isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "There is an empty fields", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                int age = Integer.parseInt(ageText);
+                long number = Long.parseLong(numberText);
+                
+                int confirm = JOptionPane.showConfirmDialog(null, "Confirm update?", "Message", JOptionPane.OK_CANCEL_OPTION);
+            
+                if(confirm == JOptionPane.OK_OPTION) {
+                    db.ps = db.con.prepareStatement("UPDATE StudentInfo SET firstName=?, middleName=?, lastName=?, gender=?, age=?, course=?, address=?, contactNum=? WHERE ID=?");
+                    db.ps.setString(1, first);
+                    db.ps.setString(2, middle);
+                    db.ps.setString(3, lastName);
+                    db.ps.setString(4, gender);
+                    db.ps.setInt(5, age);
+                    db.ps.setString(6, course);
+                    db.ps.setString(7, address);
+                    db.ps.setLong(8, number);
+                    db.ps.setString(9, id);
+
+                    int check = db.ps.executeUpdate();
+
+                    if (check == 1) {
+                        JOptionPane.showMessageDialog(null, "Successfully updated!", "Message", JOptionPane.PLAIN_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Can't update!", "Message", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
+        catch(NumberFormatException i) {
+            JOptionPane.showMessageDialog(null, "Invalid input for age or contact number", "Invalid", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_saveBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressFld;
     private javax.swing.JTextField ageFld;
@@ -189,6 +302,7 @@ public class UpdateStudents extends javax.swing.JFrame {
     private javax.swing.JTextField mNameFld;
     private javax.swing.JPanel moveFrame;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JButton searchBtn;
     private javax.swing.JTextField studID;
     // End of variables declaration//GEN-END:variables
 }

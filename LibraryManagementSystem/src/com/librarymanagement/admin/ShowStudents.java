@@ -2,7 +2,10 @@ package com.librarymanagement.admin;
 
 import java.sql.*;
 import java.util.Vector;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class ShowStudents extends javax.swing.JFrame {
     DBConnection db;
@@ -26,7 +29,7 @@ public class ShowStudents extends javax.swing.JFrame {
             while(db.rs.next()) {
                 Vector vec = new Vector();
                 
-                vec.add(db.rs.getInt(1));
+                vec.add(db.rs.getString(1));
                 vec.add(db.rs.getString(2));
                 vec.add(db.rs.getString(3));
                 vec.add(db.rs.getString(4));
@@ -53,8 +56,10 @@ public class ShowStudents extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listStudent = new javax.swing.JTable();
+        searchFld = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Library Management");
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -149,7 +154,21 @@ public class ShowStudents extends javax.swing.JFrame {
         listStudent.setShowGrid(true);
         jScrollPane1.setViewportView(listStudent);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 49, 950, 360));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 79, 950, 330));
+
+        searchFld.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchFld.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(23, 107, 135)), "Search Students", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(23, 107, 135))); // NOI18N
+        searchFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFldActionPerformed(evt);
+            }
+        });
+        searchFld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFldKeyReleased(evt);
+            }
+        });
+        jPanel2.add(searchFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 240, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 970, 450));
 
@@ -175,12 +194,33 @@ public class ShowStudents extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
 
+    private void searchFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFldActionPerformed
+
+    private void searchFldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFldKeyReleased
+        DefaultTableModel def = (DefaultTableModel) listStudent.getModel();
+        final TableRowSorter<TableModel> sor = new TableRowSorter<>(def);
+          
+        listStudent.setRowSorter(sor);
+          
+        String model = searchFld.getText();
+        if(model.length() == 0)
+        {
+            sor.setRowFilter(null);
+        }
+        else{
+            sor.setRowFilter(RowFilter.regexFilter(model));
+        }
+    }//GEN-LAST:event_searchFldKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel exit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable listStudent;
+    protected javax.swing.JTable listStudent;
     private javax.swing.JPanel moveFrame;
+    private javax.swing.JTextField searchFld;
     // End of variables declaration//GEN-END:variables
 }

@@ -150,6 +150,7 @@ public class AdminLogin extends javax.swing.JFrame {
         loginBtn.setForeground(new java.awt.Color(228, 228, 228));
         loginBtn.setText("LOGIN");
         loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginBtn.setFocusable(false);
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -217,16 +218,13 @@ public class AdminLogin extends javax.swing.JFrame {
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
                 login();
-            } catch (Exception e) {
+                } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "There is an error: " + e.getMessage(), "Error occurred", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 
     public void login() throws Exception{
-        emptyUser.setText("");
-        emptyPass.setText("");
-
         try {
             Statement s = db.con.createStatement();
             String x = "SELECT * FROM AdminCredentials WHERE Username='"+ username +"'AND Password='"+ password + "'";
@@ -241,7 +239,7 @@ public class AdminLogin extends javax.swing.JFrame {
                 return;
             }
             
-            JOptionPane.showMessageDialog(null, "Login Failed", "Failed", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Login Failed", "Error", JOptionPane.ERROR_MESSAGE);
 
         }catch(Exception e) {
             System.out.println("Error" + e.getMessage());
@@ -250,7 +248,6 @@ public class AdminLogin extends javax.swing.JFrame {
     private void moveFrameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moveFrameMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
-        moveFrame.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
     }//GEN-LAST:event_moveFrameMousePressed
 
     private void moveFrameMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moveFrameMouseDragged
@@ -260,14 +257,12 @@ public class AdminLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_moveFrameMouseDragged
 
     private void showPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPassMouseClicked
-        if(!passFld.getText().isEmpty()) {
-            if(showPass.isSelected()) {
-                passFld.setEchoChar((char)0);
-                showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/show.png"));
-            } else {
-                passFld.setEchoChar('*');
-                showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/hide.png"));
-            }
+        if(showPass.isSelected()) {
+            passFld.setEchoChar((char)0);
+            showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/show.png"));
+        } else {
+           passFld.setEchoChar('*');
+           showPass.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/hide.png"));
         }
     }//GEN-LAST:event_showPassMouseClicked
         

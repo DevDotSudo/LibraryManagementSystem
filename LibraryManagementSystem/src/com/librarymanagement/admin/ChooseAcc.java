@@ -35,6 +35,7 @@ public class ChooseAcc extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         moveFrame = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Library Management");
@@ -60,6 +61,7 @@ public class ChooseAcc extends javax.swing.JFrame {
         adminBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         adminBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         adminBtn.setFocusPainted(false);
+        adminBtn.setFocusable(false);
         adminBtn.setIconTextGap(20);
         adminBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +87,7 @@ public class ChooseAcc extends javax.swing.JFrame {
         studentBtn.setText("Student");
         studentBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         studentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        studentBtn.setFocusable(false);
         studentBtn.setIconTextGap(20);
         studentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +103,7 @@ public class ChooseAcc extends javax.swing.JFrame {
         exitBtn.setText("Exit");
         exitBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         exitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitBtn.setFocusable(false);
         exitBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         exitBtn.setIconTextGap(20);
         exitBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -129,18 +133,18 @@ public class ChooseAcc extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 390, 440));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman Cyr", 1, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Poppins SemiBold", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(254, 254, 254));
         jLabel3.setText("Library");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, 60));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, 60));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman Cyr", 1, 36)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Poppins SemiBold", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(254, 254, 254));
         jLabel4.setText("Management");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon("/home/sudo_dotdev/NetBeansProjects/LibraryManagementSystem/images/Library-bro.png")); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, 160));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, 160));
 
         moveFrame.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         moveFrame.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -154,6 +158,12 @@ public class ChooseAcc extends javax.swing.JFrame {
             }
         });
         jPanel1.add(moveFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 20));
+
+        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("ISUFST");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,6 +232,7 @@ public class ChooseAcc extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
